@@ -1,0 +1,22 @@
+{
+  "name": "chronicle",
+  "module": "index.ts",
+  "type": "module",
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "@duckdb/node-api": "^1.4.3-r.2",
+    "uuid": "^13.0.0"
+  },
+  "prettier": {
+    "semi": false,
+    "tabWidth": 2,
+    "printWidth": 120,
+    "singleQuote": true
+  }
+}

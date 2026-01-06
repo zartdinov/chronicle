@@ -1,0 +1,32 @@
+name: Process Datasets
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Run weekly on Monday at 00:00 UTC
+    - cron: '0 0 * * 1'
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dataset:
+          - hf://datasets/zartdinov/openstreetmap/russia/northwestern-fed-district.parquet
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.5
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Process dataset
+        env:
+          DATASET_PATH: ${{ matrix.dataset }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: bun run index.ts
